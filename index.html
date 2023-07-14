@@ -1,1 +1,72 @@
+<!DOCTYPE html>
+<html>
+<body>
 
+<h1>Student Grades</h1>
+
+<div id="grades"></div> 
+
+<script>
+
+var grades = "jim|25, sue|32, mary|34, ann|22, ted|28, frank|15, lisa|19, mike|30, ahn|26, vishaya|27";
+
+// Split string into array
+var students = grades.split(", ");
+
+// Track scores
+var lowest = Infinity;
+var highest = -Infinity;
+var total = 0;
+
+// Sort alphabetically 
+students.sort(function(a, b) {
+  var nameA = a.split("|")[0];
+  var nameB = b.split("|")[0];
+  if(nameA < nameB) return -1;
+  if(nameA > nameB) return 1;
+  return 0; 
+});
+
+// Output each student
+for(var i = 0; i < students.length; i++) {
+  
+  var student = students[i].split("|");
+  var name = student[0];
+  var score = parseInt(student[1]);
+  
+  // Format name
+  name = name.charAt(0).toUpperCase() + name.slice(1);
+  
+  // Update scores
+  if(score < lowest) {
+    lowest = score;
+  }
+  if(score > highest) {
+    highest = score; 
+  }
+  total += score;
+  
+  // Output
+  var div = document.createElement("div");
+  div.textContent = name + " - " + score;
+  document.getElementById("grades").appendChild(div);
+  
+}
+
+// Calculate average
+var avg = total / students.length;
+
+// Output summary
+var summary = "Total Students: " + students.length + 
+              " Lowest Score: " + lowest +
+              " Highest Score: " + highest +
+              " Average Score: " + avg.toFixed(2);
+              
+var div = document.createElement("div");
+div.textContent = summary;
+document.getElementById("grades").appendChild(div);
+
+</script>
+
+</body>
+</html>
